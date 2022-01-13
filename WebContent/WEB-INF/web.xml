@@ -7,7 +7,7 @@
   
   <servlet>
   	<servlet-name>OiMundoServlet</servlet-name>
-  	<servlet-class>br.com.alura.gerenciador.servlet.OiMundoServlet</servlet-class>
+  	<servlet-class>servlet.OiMundoServlet</servlet-class>
   </servlet>
   
   <servlet-mapping>
