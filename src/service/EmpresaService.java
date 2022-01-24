@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -18,24 +19,26 @@ public class EmpresaService implements EmpresaRepository {
 
 
     public String executar(HttpServletRequest request, HttpServletResponse response, String acao) throws ServletException, IOException {
-        if(acao.equals("listar")){
+        if (acao.equals("listar")) {
             return listar(request);
-        }else if(acao.equals("cadastrar")){
+        } else if (acao.equals("listaEmpresasComOrdem")) {
+            return listaEmpresasComOrdem(request);
+        } else if (acao.equals("cadastrar")) {
             return cadastrar(request);
-        }else if(acao.equals("editar")){
+        } else if (acao.equals("editar")) {
             return alterar(request);
-        }else if(acao.equals("remover")){
+        } else if (acao.equals("remover")) {
             return remover(request);
-        }else if(acao.equals("buscar")){
+        } else if (acao.equals("buscar")) {
             return buscar(request);
-        }else{
+        } else {
             return formCadastrar();
         }
     }
 
 
     /*Método de listagem de empresas*/
-    public String listar(HttpServletRequest request){
+    public String listar(HttpServletRequest request) {
         Banco banco = new Banco();
         List<Empresa> lista = banco.getEmpresas();
 
@@ -44,8 +47,24 @@ public class EmpresaService implements EmpresaRepository {
         return "forward:listar.jsp";
     }
 
+
+    public String listaEmpresasComOrdem(HttpServletRequest request ){
+
+        System.out.println("listando empresas em ordem alfabetica");
+
+        Banco banco = new Banco();
+        List<Empresa> lista = banco.getEmpresas();
+
+        lista.sort(Comparator.comparing(Empresa::getNome));
+        
+        request.setAttribute("empresas", lista);
+
+        return "forward:listar.jsp";
+    }
+
+
     /*Método de cadastro de empresas*/
-    public  String cadastrar(HttpServletRequest request) throws ServletException{
+    public String cadastrar(HttpServletRequest request) throws ServletException {
         String nomeEmpresa = request.getParameter("nome");
         String paramDataEmpresa = request.getParameter("data");
 
@@ -69,13 +88,13 @@ public class EmpresaService implements EmpresaRepository {
         return "redirect:entrada?acao=listar";
     }
 
-    public  String formCadastrar() {
+    public String formCadastrar() {
 
         return "forward:cadastrar.jsp";
     }
 
     /*Método de edição de empresas*/
-    public String alterar(HttpServletRequest request) throws ServletException{
+    public String alterar(HttpServletRequest request) throws ServletException {
         System.out.println("Alterando empresa");
         String nomeEmpresa = request.getParameter("nome");
         String paramDataEmpresa = request.getParameter("data");
@@ -95,11 +114,11 @@ public class EmpresaService implements EmpresaRepository {
         empresa.setNome(nomeEmpresa);
         empresa.setDataAbertura(dataAbertura);
 
-       return "redirect:entrada?acao=listar";
+        return "redirect:entrada?acao=listar";
     }
 
     /*Método de exclusão de empresas*/
-    public String remover(HttpServletRequest request){
+    public String remover(HttpServletRequest request) {
         String paramId = request.getParameter("id");
         Integer id = Integer.valueOf(paramId);
 
@@ -112,7 +131,7 @@ public class EmpresaService implements EmpresaRepository {
         return "redirect:entrada?acao=listar";
     }
 
-    public String buscar(HttpServletRequest request){
+    public String buscar(HttpServletRequest request) {
         String paramId = request.getParameter("id");
         Integer id = Integer.valueOf(paramId);
 
