@@ -1,5 +1,7 @@
 package servlet;
 
+import modelo.Empresa;
+import repository.EmpresaRepository;
 import service.EmpresaService;
 
 import javax.servlet.RequestDispatcher;
@@ -19,23 +21,17 @@ public class EntradaServlet extends HttpServlet {
 
         String acao = request.getParameter("acao");
         String uri = "";
-
-
-        if(acao.equals("listar")){
-           uri = empresaService.listar(request,response);
-        }else if(acao.equals("cadastrar")){
-            uri = empresaService.cadastrar(request,response);
-        }else if(acao.equals("editar")){
-            uri = empresaService.alterar(request,response);
-        }else if(acao.equals("remover")){
-            uri = empresaService.remover(request,response);
-        }else if(acao.equals("buscar")){
-           uri = empresaService.buscar(request,response);
-        }else if(acao.equals("formCadastrar")){
-            uri = empresaService.formCadastrar(request,response);
+        String nomeClasse = "service.EmpresaService";
+        String nome;
+        try {
+            Class classe = Class.forName(nomeClasse);
+            EmpresaRepository empresaRepository = (EmpresaRepository) classe.newInstance();
+            nome = empresaRepository.executar(request, response, acao);
+        }catch (ClassNotFoundException | InstantiationException | IllegalAccessException e){
+            throw  new ServletException();
         }
 
-        String[] tipoEuri = uri.split(":");
+        String[] tipoEuri = nome.split(":");
         if (tipoEuri[0].equals("forward")) {
             RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/view/empresa/"+tipoEuri[1]);
             rd.forward(request, response);
