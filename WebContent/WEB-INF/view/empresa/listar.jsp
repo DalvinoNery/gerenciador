@@ -15,7 +15,7 @@
 	<c:if test="${not empty empresa}">
 		Empresa ${ empresa } cadastrada com sucesso!
 	</c:if>
-	<a href="/gerenciador/formNovaEmpresa.jsp">Adicionar</a>
+	<a href="/gerenciador/entrada?acao=formCadastrar">Adicionar</a>
 	<br/>
 	Lista de empresas: <br />
 	

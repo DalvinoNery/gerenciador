@@ -22,7 +22,7 @@ public class EmpresaService {
 
         request.setAttribute("empresas", lista);
 
-        return "forward:/listaEmpresas.jsp";
+        return "forward:listar.jsp";
     }
 
     /*Método de cadastro de empresas*/
@@ -48,6 +48,11 @@ public class EmpresaService {
         request.setAttribute("empresa", empresa.getNome());
 
         return "redirect:entrada?acao=listar";
+    }
+
+    public  String formCadastrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+
+        return "forward:cadastrar.jsp";
     }
 
     /*Método de edição de empresas*/
@@ -100,6 +105,6 @@ public class EmpresaService {
 
         request.setAttribute("empresa", empresa);
 
-        return "forward:/formAlteraEmpresa.jsp";
+        return "forward:alterar.jsp";
     }
 }

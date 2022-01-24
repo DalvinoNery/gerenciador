@@ -31,11 +31,13 @@ public class EntradaServlet extends HttpServlet {
             uri = empresaService.remover(request,response);
         }else if(acao.equals("buscar")){
            uri = empresaService.buscar(request,response);
+        }else if(acao.equals("formCadastrar")){
+            uri = empresaService.formCadastrar(request,response);
         }
 
         String[] tipoEuri = uri.split(":");
         if (tipoEuri[0].equals("forward")) {
-            RequestDispatcher rd = request.getRequestDispatcher(tipoEuri[1]);
+            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/view/empresa/"+tipoEuri[1]);
             rd.forward(request, response);
         }else{
             response.sendRedirect(tipoEuri[1]);
