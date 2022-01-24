@@ -16,18 +16,17 @@ import java.util.List;
 public class EmpresaService {
 
     /*Método de listagem de empresas*/
-    public void listar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public String listar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Banco banco = new Banco();
         List<Empresa> lista = banco.getEmpresas();
 
         request.setAttribute("empresas", lista);
 
-        RequestDispatcher rd = request.getRequestDispatcher("/listaEmpresas.jsp");
-        rd.forward(request, response);
+        return "forward:/listaEmpresas.jsp";
     }
 
     /*Método de cadastro de empresas*/
-    public  void cadastrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+    public  String cadastrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         String nomeEmpresa = request.getParameter("nome");
         String paramDataEmpresa = request.getParameter("data");
 
@@ -48,11 +47,11 @@ public class EmpresaService {
 
         request.setAttribute("empresa", empresa.getNome());
 
-        response.sendRedirect("entrada?acao=listar");
+        return "redirect:entrada?acao=listar";
     }
 
     /*Método de edição de empresas*/
-    public void alterar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+    public String alterar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         System.out.println("Alterando empresa");
         String nomeEmpresa = request.getParameter("nome");
         String paramDataEmpresa = request.getParameter("data");
@@ -67,18 +66,16 @@ public class EmpresaService {
             throw new ServletException(e);
         }
 
-        System.out.println(id);
-
         Banco banco = new Banco();
         Empresa empresa = banco.buscaEmpresaPelaId(id);
         empresa.setNome(nomeEmpresa);
         empresa.setDataAbertura(dataAbertura);
 
-        response.sendRedirect("entrada?acao=listar");
+       return "redirect:entrada?acao=listar";
     }
 
     /*Método de exclusão de empresas*/
-    public void remover(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+    public String remover(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         String paramId = request.getParameter("id");
         Integer id = Integer.valueOf(paramId);
 
@@ -87,10 +84,11 @@ public class EmpresaService {
         Banco banco = new Banco();
         banco.removeEmpresa(id);
 
-        response.sendRedirect("entrada?acao=listar");
+
+        return "redirect:entrada?acao=listar";
     }
 
-    public void buscar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+    public String buscar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         String paramId = request.getParameter("id");
         Integer id = Integer.valueOf(paramId);
 
@@ -102,7 +100,6 @@ public class EmpresaService {
 
         request.setAttribute("empresa", empresa);
 
-        RequestDispatcher rd = request.getRequestDispatcher("/formAlteraEmpresa.jsp");
-        rd.forward(request, response);
+        return "forward:/formAlteraEmpresa.jsp";
     }
 }
