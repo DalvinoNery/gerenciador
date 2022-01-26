@@ -29,8 +29,8 @@ public class Banco {
 		usuario.setLogin("rodrigo");
 		usuario.setSenha("123456");
 
-		usuario.setLogin("olivia");
-		usuario.setSenha("987654");
+		usuario2.setLogin("olivia");
+		usuario2.setSenha("987654");
 
 		listaUsuarios.add(usuario);
 		listaUsuarios.add(usuario2);
@@ -68,4 +68,12 @@ public class Banco {
 		return null;
 	}
 
+    public Usuario autenticaUsuario(String user, String senha) {
+		for(Usuario usuario: listaUsuarios){
+			if(usuario.ehIgual(user,senha)){
+				return  usuario;
+			}
+		}
+		return null;
+    }
 }
