@@ -1,9 +1,6 @@
 package servlet;
 
 import acao.Acao;
-import modelo.Empresa;
-import repository.EmpresaRepository;
-import service.EmpresaService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,7 +13,6 @@ import java.io.IOException;
 //@WebServlet("/entrada")
 public class EntradaServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private EmpresaService empresaService = new EmpresaService();
 
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -41,11 +37,4 @@ public class EntradaServlet extends HttpServlet {
 
     }
 
-    public EmpresaService getEmpresaService() {
-        return empresaService;
-    }
-
-    public void setEmpresaService(EmpresaService empresaService) {
-        this.empresaService = empresaService;
-    }
 }
