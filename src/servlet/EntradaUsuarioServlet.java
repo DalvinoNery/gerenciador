@@ -1,39 +1,38 @@
 package servlet;
 
-import acao.Acao;
-import modelo.Empresa;
 import repository.EmpresaRepository;
+import repository.UsuarioRepository;
 import service.EmpresaService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 //@WebServlet("/entrada")
-public class EntradaServlet extends HttpServlet {
+public class EntradaUsuarioServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
+    private EntradaServlet entradaServlet = new EntradaServlet();
     private EmpresaService empresaService = new EmpresaService();
 
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String nomeParametro = request.getParameter("acao");
-        String nomeClasse = "acao."+nomeParametro;
+        String acao = request.getParameter("acao");
+        String nomeClasse = "service.LoginService";
         String nome;
         try {
             Class classe = Class.forName(nomeClasse);
-            Acao acao= (Acao) classe.newInstance();
-            nome = acao.executar(request, response);
+            UsuarioRepository usuarioRepository = (UsuarioRepository) classe.newInstance();
+            nome = usuarioRepository.executar(request, response, acao);
         }catch (ClassNotFoundException | InstantiationException | IllegalAccessException e){
             throw  new ServletException();
         }
 
         String[] tipoEuri = nome.split(":");
         if (tipoEuri[0].equals("forward")) {
-            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/view/"+tipoEuri[1]);
+            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/view/usuario/"+tipoEuri[1]);
             rd.forward(request, response);
         }else{
             response.sendRedirect(tipoEuri[1]);

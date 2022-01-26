@@ -1,10 +1,10 @@
 package service;
 
+import acao.Acao;
 import modelo.Banco;
 import modelo.Empresa;
 import repository.EmpresaRepository;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -44,7 +44,7 @@ public class EmpresaService implements EmpresaRepository {
 
         request.setAttribute("empresas", lista);
 
-        return "forward:listar.jsp";
+        return "redirect:entrada?acao=listar";
     }
 
 
@@ -59,7 +59,7 @@ public class EmpresaService implements EmpresaRepository {
         
         request.setAttribute("empresas", lista);
 
-        return "forward:listar.jsp";
+        return "forward:listarEmpresa.jsp";
     }
 
 
@@ -90,7 +90,7 @@ public class EmpresaService implements EmpresaRepository {
 
     public String formCadastrar() {
 
-        return "forward:cadastrar.jsp";
+        return "forward:login.jsp";
     }
 
     /*Método de edição de empresas*/
@@ -143,6 +143,6 @@ public class EmpresaService implements EmpresaRepository {
 
         request.setAttribute("empresa", empresa);
 
-        return "forward:alterar.jsp";
+        return "forward:alterarEmpresa.jsp";
     }
 }

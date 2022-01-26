@@ -9,10 +9,21 @@
   	<servlet-name>EntradaServlet</servlet-name>
   	<servlet-class>servlet.EntradaServlet</servlet-class>
   </servlet>
+
+    <servlet>
+        <servlet-name>EntradaUsuarioServlet</servlet-name>
+        <servlet-class>servlet.EntradaUsuarioServlet</servlet-class>
+    </servlet>
   
   <servlet-mapping>
   	<servlet-name>EntradaServlet</servlet-name>
   	<url-pattern>/entrada</url-pattern>
   </servlet-mapping>
-  
+
+    <servlet-mapping>
+        <servlet-name>EntradaUsuarioServlet</servlet-name>
+        <url-pattern>/usuario</url-pattern>
+    </servlet-mapping>
+
+
 </web-app>

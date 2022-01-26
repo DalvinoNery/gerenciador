@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Cadastrar Empresa</title>
 </head>
 <body>
 
@@ -13,7 +13,7 @@
 	
 		Nome: <input type="text" name="nome"  />
 		Data Abertura: <input type="text" name="data"  />
-		<input type="hidden" name="acao" value="cadastrar">
+		<input type="hidden" name="acao" value="NovaEmpresa">
 		<input type="submit" />
 	</form>
 

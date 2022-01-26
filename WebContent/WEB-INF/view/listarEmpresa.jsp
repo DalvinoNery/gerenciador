@@ -15,7 +15,7 @@
 	<c:if test="${not empty empresa}">
 		Empresa ${ empresa } cadastrada com sucesso!
 	</c:if>
-	<a href="/gerenciador/entrada?acao=formCadastrar">Adicionar</a>
+	<a href="/gerenciador/entrada?acao=NovaEmpresaForm">Adicionar</a>
 	<br/>
 	Lista de empresas: <br />
 	
@@ -24,8 +24,8 @@
 
 			<li>
 				${empresa.nome } - <fmt:formatDate value="${empresa.dataAbertura }" pattern="dd/MM/yyyy"/> 
-				<a href="/gerenciador/entrada?acao=buscar&id=${empresa.id}">Editar</a>
-				<a href="/gerenciador/entrada?acao=remover&id=${empresa.id}">Remove</a>
+				<a href="/gerenciador/entrada?acao=MostraEmpresa&id=${empresa.id}">Editar</a>
+				<a href="/gerenciador/entrada?acao=RemoveEmpresa&id=${empresa.id}">Remove</a>
 			</li>
 		</c:forEach>
 	</ul>
