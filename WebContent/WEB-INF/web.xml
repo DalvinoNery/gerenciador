@@ -5,28 +5,48 @@
     <welcome-file>bem-vindo.html</welcome-file>
   </welcome-file-list>
   
-  <servlet>
-  	<servlet-name>EntradaServlet</servlet-name>
-  	<servlet-class>servlet.EntradaServlet</servlet-class>
-  </servlet>
+<!--  <servlet>-->
+<!--  	<servlet-name>EntradaServlet</servlet-name>-->
+<!--  	<servlet-class>servlet.EntradaServlet</servlet-class>-->
+<!--  </servlet>-->
 
-    <servlet>
-        <servlet-name>EntradaUsuarioServlet</servlet-name>
-        <servlet-class>servlet.EntradaUsuarioServlet</servlet-class>
-    </servlet>
-  
-  <servlet-mapping>
-  	<servlet-name>EntradaServlet</servlet-name>
-  	<url-pattern>/entrada</url-pattern>
-  </servlet-mapping>
+<!--  <servlet-mapping>-->
+<!--  	<servlet-name>EntradaServlet</servlet-name>-->
+<!--  	<url-pattern>/entrada</url-pattern>-->
+<!--  </servlet-mapping>-->
 
-    <servlet-mapping>
-        <servlet-name>EntradaUsuarioServlet</servlet-name>
-        <url-pattern>/usuario</url-pattern>
-    </servlet-mapping>
+    <filter>
+        <filter-name>monitoraFilter</filter-name>
+        <filter-class>servlet.MonitoriamentoFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>monitoraFilter</filter-name>
+        <url-pattern>/entrada</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>autorizacaoFilter</filter-name>
+        <filter-class>servlet.AutorizacaoFilter</filter-class>
+    </filter>
+    
+    <filter-mapping>
+        <filter-name>autorizacaoFilter</filter-name>
+        <url-pattern>/entrada</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>controladorFilter</filter-name>
+        <filter-class>servlet.ControladorFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>controladorFilter</filter-name>
+        <url-pattern>/entrada</url-pattern>
+    </filter-mapping>
 
     <session-config>
-        <!-- 10 min -->
+        <!--Duração da sessão: 1 min -->
         <session-timeout>1</session-timeout>
     </session-config>
 
