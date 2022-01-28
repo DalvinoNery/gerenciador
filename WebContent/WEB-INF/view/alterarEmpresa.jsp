@@ -11,6 +11,8 @@
 <title>Insert title here</title>
 </head>
 <body>
+<!-- Componente do login e logout-->
+<c:import url="login-logout-component.jsp"/>
 
 	<form action="${linkEntradaServlet }" method="post">
 	

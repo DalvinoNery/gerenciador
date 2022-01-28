@@ -8,6 +8,8 @@
 <title>Cadastrar Empresa</title>
 </head>
 <body>
+<!-- Componente do login e logout-->
+<c:import url="login-logout-component.jsp"/>
 
 	<form action="${linkServletNovaEmpresa }" method="post">
 	

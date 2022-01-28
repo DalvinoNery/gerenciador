@@ -25,5 +25,9 @@
         <url-pattern>/usuario</url-pattern>
     </servlet-mapping>
 
+    <session-config>
+        <!-- 10 min -->
+        <session-timeout>1</session-timeout>
+    </session-config>
 
 </web-app>

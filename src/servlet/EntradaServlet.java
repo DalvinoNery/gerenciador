@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 //@WebServlet("/entrada")
@@ -15,8 +16,15 @@ public class EntradaServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         String nomeParametro = request.getParameter("acao");
+        HttpSession session = request.getSession();
+        Boolean statusUsuario =(session.getAttribute("usuarioLogado") == null);
+        Boolean acaoProjegida = !(nomeParametro.equals("Login") || nomeParametro.equals("LoginForm"));
+        if(acaoProjegida && statusUsuario){//Se o usuário não estiver logado, redireciona para tela de login
+            response.sendRedirect("entrada?acao=LoginForm");
+            return;
+        }
+
         String nomeClasse = "acao."+nomeParametro;
         String nome;
         try {

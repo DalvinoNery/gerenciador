@@ -11,6 +11,8 @@
 <title>Java Standard Taglib</title>
 </head>
 <body>
+	<!-- Componente do login e logout-->
+	<c:import url="login-logout-component.jsp"/>
 
 	<c:if test="${not empty empresa}">
 		Empresa ${ empresa } cadastrada com sucesso!
